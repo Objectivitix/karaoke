@@ -57,46 +57,45 @@ void setup() {
   // set up each song
   defy.bpm = 130;
   defy.notesN = 23;
-  defy.pitches =
+  defy.pitches = {
     // no   wiz - ard  that there is   or  wa - as
-    {  Db4, Gb4,   F4, Eb4,  Db4, Gb4, F4, F4, Eb4,
+      Db4,  Gb4,   F4, Eb4,  Db4, Gb4, F4, F4, Eb4,
     // is   ev - er  gon - na-  (deco) bring-(deco)
       Db4, Gb4, F4, Eb4, Db4, Eb4, F4, F4, Gb4, Eb4,
     // ME - EE - EE  DOWN!
       Eb5, F5, Db5, Db5};
-  defy.durations =
-    {QTR, ETH, QTR, QTR, QTR, ETH, QTR, ETH, QTR,
+  defy.durations = {
+    QTR, ETH, QTR, QTR, QTR, ETH, QTR, ETH, QTR,
     QTR, ETH, QTR, QTR, ETH, STN, STN, QTR, STN, DET,
     HLF, ETH, QTR, HLF};
-  defy.liaisons =
-    {0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3,
+  defy.liaisons = {
+    0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3,
     0.3, 0.3, 0.3, 0.3, 0, 0, 0.3, 0, 0, 2,
-    0, 0, 0.4, 0
-    };
+    0, 0, 0.4, 0};
   defy.lightIsOn = {
-    {true, false, false, false},
-    {false, true, false, false},
-    {false, false, true, false},
-    {false, false, false, true},
-      {true, false, false, false},
-    {false, true, false, false},
-    {false, false, true, false},
-    {false, false, false, true},
-      {true, false, false, false},
-    {false, true, false, false},
-    {false, false, true, false},
-    {false, false, false, true},
-      {true, false, false, false},
-    {false, true, false, false},
-    {false, false, true, false},
-    {false, false, false, true},
-      {true, false, false, false},
-    {false, true, false, false},
-    {false, false, true, false},
-    {false, false, false, true},
-      {true, false, false, false},
-    {false, true, false, false},
-    {false, false, true, false}};
+    {1, 0, 0, 0},  // no
+    {0, 1, 0, 0},  // wiz-
+    {0, 0, 1, 0},  // ard
+    {0, 0, 0, 1},  // that
+    {1, 0, 0, 0},  // there
+    {0, 1, 0, 0},  // is
+    {0, 0, 1, 0},  // or
+    {0, 0, 1, 0},  // wa-
+    {0, 0, 0, 1},  // as
+    {1, 0, 0, 0},  // is
+    {0, 1, 0, 0},  // ev-
+    {0, 0, 1, 0},  // er
+    {0, 0, 0, 1},  // gon-
+    {1, 0, 0, 1},  // na-
+    {1, 1, 0, 1},  // (deco)
+    {0, 0, 1, 0},  // (deco)
+    {0, 0, 1, 0},  // bring-
+    {0, 1, 0, 0},  // (deco)
+    {0, 0, 0, 1},  // (deco)
+    {1, 0, 0, 1},  // ME-
+    {0, 1, 1, 0},  // EE-
+    {1, 0, 0, 1},  // EE-
+    {1, 1, 1, 1}}; // DOWN!
 
   currBeatDuration = defy.beatDuration();
 }
@@ -105,7 +104,7 @@ void loop() {
   long currTime = millis();
   long elapsed = currTime - prevTime;
 
-  if (noteIndex > 0 && elapsed > currTrueDuration) {
+  if (elapsed > currTrueDuration) {
     for (int i = 0; i < LIGHTS_N; i++) {
       digitalWrite(LIGHTS[i], LOW);
     }
