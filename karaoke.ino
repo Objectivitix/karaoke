@@ -110,7 +110,7 @@ const bool defyLights[][4] = {
   {0, 0, 0, 1},  // (deco)
   {1, 0, 0, 1},  // ME-
   {0, 1, 1, 0},  // EE-
-  {1, 0, 0, 1},  // EE-
+  {0, 0, 0, 0},  // EE-
   {1, 1, 1, 1}   // DOWN!
 };
 
@@ -162,15 +162,15 @@ void loop() {
   long currTime = millis();
 
   for (int track = 0; track < defy.tracksN; track++) {
-    if (finished[track]) {
-      continue;
-    }
-
     long elapsed = currTime - prevTimes[track];
 
     if (track == 0 && elapsed > currConvertedDurations[0]) {
       for (int i = 0; i < 4; i++) {
         digitalWrite(LIGHTS[i], LOW);
+      }
+
+      if (allFinished) {
+        while (true);
       }
     }
 
@@ -178,9 +178,8 @@ void loop() {
       continue;
     }
 
-    if (allFinished) {
-      noInterrupts();
-      while (true);
+    if (finished[track]) {
+      continue;
     }
 
     if (track == 0) {
@@ -197,7 +196,7 @@ void loop() {
 
     Serial.println("track:" + String(track));
     Serial.println("index: " + String(noteIndices[track]));
-    Serial.println("dur: " + String(currConvertedDurations[track]));
+    Serial.println("prev: " + String(prevTimes[track]));
 
     tones[track].play(pgm_read_word(&defy.tracks[track].pitches[noteIndices[track]]), currConvertedDurations[track]);
 
