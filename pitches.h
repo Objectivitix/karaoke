@@ -33,16 +33,22 @@
 
 #define C3  131
 #define CS3 139
+#define Db3 139
 #define D3  147
 #define DS3 156
+#define Eb3 156
 #define E3  165
 #define F3  175
 #define FS3 185
+#define Gb3 185
 #define G3  196
 #define GS3 208
+#define Ab3 208
 #define A3  220
 #define AS3 233
+#define Bb3 233
 #define B3  247
+#define Cb4 247
 
 #define C4  262
 #define CS4 277
@@ -61,6 +67,7 @@
 #define AS4 466
 #define Bb4 466
 #define B4  494
+#define Cb5 494
 
 #define C5  523
 #define CS5 554
@@ -79,6 +86,7 @@
 #define AS5 932
 #define Bb5 932
 #define B5  988
+#define Cb6 988
 
 #define C6  1047
 #define CS6 1109
