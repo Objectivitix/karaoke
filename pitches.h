@@ -1,8 +1,15 @@
-/*************************************************
- * Public Constants
- *************************************************/
+/**
+ * pitches.h
+ * 
+ * Defines musical note frequencies for standard Western notes,
+ * from B0 (31 Hz) up to DS8 (4978 Hz), in integer form.
+ * Includes enharmonic equivalents (e.g., Db = CS) as aliases.
+ * 
+ * Author: Mr. Roller
+ * Modified by: Calo Zheng
+ * Current version date: June 20, 2025
+ */
 
-#define REST 0
 #define B0  31
 
 #define C1  33
