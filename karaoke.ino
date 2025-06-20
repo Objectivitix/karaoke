@@ -52,7 +52,10 @@ struct Song {
   const Track* tracks;
 
   // synced to melody track
-  const bool (*lightIsOn)[4];
+  const bool (*lightIsOn)[4] PROGMEM;
+
+  // song title, broken into multiple lines if needed
+  const char* const* title;
 
   // convert BPM to ms per beat
   long beatDuration() const {
@@ -60,8 +63,12 @@ struct Song {
   }
 };
 
+const char defyTitleLineOne[] PROGMEM = "Defying Gravity";
+const char defyTitleLineTwo[] PROGMEM = "";
+const char* const defyTitle[] = { defyTitleLineOne, defyTitleLineTwo };
+
 const int defyMelodyPitches[] PROGMEM = {
-  // no   wiz - ard  that there is   or  wa - as
+  // No   wiz - ard  that there is   or  wa - as
     Db4,  Gb4,   F4, Eb4,  Db4, Gb4, F4, F4, Eb4,
   // is   ev - er  gon - na-  (deco) bring-(deco)
     Db4, Gb4, F4, Eb4, Db4, Eb4, F4, F4, Gb4, Eb4,
@@ -122,8 +129,8 @@ const Track defyTracks[] = {
   { 12, 13000, 200, defyHarmonyPitches, defyHarmonyDurations, defyHarmonyLiaisons, defyHarmonyLyrics }
 };
 
-const bool defyLights[][4] = {
-  {1, 0, 0, 0},  // no
+const bool defyLights[][4] PROGMEM = {
+  {1, 0, 0, 0},  // No
   {0, 1, 0, 0},  // wiz-
   {0, 0, 1, 0},  // ard
   {0, 0, 0, 1},  // that
@@ -174,51 +181,98 @@ const bool defyLights[][4] = {
   {1, 1, 1, 1},  //
 };
 
+const char maryTitleLineOne[] PROGMEM = "Mary Had a";
+const char maryTitleLineTwo[] PROGMEM = "Little Lamb";
+const char* const maryTitle[] = { maryTitleLineOne, maryTitleLineTwo };
+
 const int maryMelodyPitches[] PROGMEM = {
-  Ab4, Db5, Eb5, Db5, Eb5, Db5, Bb4, Db5, Eb5, Bb4, Db5
+  E4, D4, C4, D4, E4, E4, E4,
+  D4, D4, D4, E4, G4, G4,
+  E4, D4, C4, D4, E4, E4, E4,
+  E4, D4, D4, E4, D4, C4
 };
 
 const float maryMelodyDurations[] PROGMEM = {
-  DET, STN, STN, STN, STN, STN, STN, STN, ETH, ETH, WHL
+  QTR, QTR, QTR, QTR, QTR, QTR, HLF,
+  QTR, QTR, HLF, QTR, QTR, HLF,
+  QTR, QTR, QTR, QTR, QTR, QTR, QTR,
+  QTR, QTR, QTR, QTR, QTR, WHL
 };
 
 const float maryMelodyLiaisons[] PROGMEM = {
-  0.1, 0, 0, 0, 0, 0, 0, 0, 0.1, 0.1, 0
+  0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3,
+  0.3, 0.3, 0.3, 0.3, 0.3, 0.3,
+  0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3,
+  0.3, 0.3, 0.3, 0.3, 0.3, 0.3
 };
 
-const char maryMelodyLyrics[] PROGMEM = "Mary";
+const char maryMelodyLyrics[] PROGMEM = "            "
+  "Mar-  y   had   a   litt-le   lamb      "
+  "Litt-le  lamb,        litt-le  lamb       "
+  "Mar-  y   had   a   litt-le  lamb  "
+  "Its fleece was white as snow.";
 
 const int maryHarmonyPitches[] PROGMEM = {
-  // I  hope you're ha - ppy  --
-    Db5, Db5,  C5,  Bb4, Ab4, Ab4
+  G4, F4, E4, F4, G4, G4, G4,
+  F4, F4, F4, G4, C5, C5,
+  G4, F4, E4, F4, G4, G4, G4,
+  G4, F4, F4, G4, F4, E4
 };
 
 const float maryHarmonyDurations[] PROGMEM = {
-  QTR, ETH, QTR, DQT, DQT, HLF
+  QTR, QTR, QTR, QTR, QTR, QTR, HLF,
+  QTR, QTR, HLF, QTR, QTR, HLF,
+  QTR, QTR, QTR, QTR, QTR, QTR, QTR,
+  QTR, QTR, QTR, QTR, QTR, WHL
 };
 
 const float maryHarmonyLiaisons[] PROGMEM = {
-  0.3, 0.3, 0.3, 0.3, 0, 0
+  0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3,
+  0.3, 0.3, 0.3, 0.3, 0.3, 0.3,
+  0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3,
+  0.3, 0.3, 0.3, 0.3, 0.3, 0.3
 };
 
 const Track maryTracks[] = {
-  { 11, 2000, 200, maryMelodyPitches, maryMelodyDurations, maryMelodyLiaisons, maryMelodyLyrics },
-  // { 6, 13000, maryHarmonyPitches, maryHarmonyDurations, maryHarmonyLiaisons }
+  { 26, 2000, 200, maryMelodyPitches, maryMelodyDurations, maryMelodyLiaisons, maryMelodyLyrics },
+  { 26, 2000, 200, maryHarmonyPitches, maryHarmonyDurations, maryHarmonyLiaisons }
 };
 
-const bool maryLights[][4] = {
-  {1, 0, 0, 0},  // no
-  {0, 1, 0, 0},  // wiz-
-  {0, 0, 1, 0},  // ard
-  {0, 0, 0, 1},  // that
-  {1, 0, 0, 0},  // there
-  {0, 1, 0, 0}   // is
+const bool maryLights[][4] PROGMEM = {
+  {0, 1, 0, 0},  // Mar-
+  {0, 0, 1, 0},  // y
+  {1, 0, 0, 0},  // had
+  {0, 0, 0, 1},  // a
+  {1, 0, 0, 0},  // litt-
+  {0, 1, 0, 0},  // le
+  {0, 1, 0, 0},  // lamb/
+  {1, 0, 0, 0},  // Litt-
+  {0, 1, 0, 0},  // le
+  {0, 1, 0, 0},  // lamb,
+  {1, 0, 0, 0},  // litt-
+  {0, 0, 0, 1},  // le
+  {0, 0, 0, 1},  // lamb/
+  {0, 1, 1, 0},  // Mar-
+  {1, 1, 0, 0},  // y
+  {0, 1, 1, 0},  // had
+  {0, 0, 1, 1},  // a
+  {1, 0, 0, 0},  // litt-
+  {0, 1, 0, 0},  // le
+  {0, 1, 0, 0},  // lamb/
+  {0, 0, 1, 0},  // Its
+  {0, 1, 0, 0},  // fleece
+  {0, 1, 0, 0},  // was
+  {0, 0, 0, 1},  // white
+  {1, 0, 0, 0},  // as
+  {0, 1, 0, 0}   // snow.
 };
 
 const Song songs[] = {
-  { 130, 2, defyTracks, defyLights },
-  { 130, 1, maryTracks, maryLights }
+  { 130, 2, defyTracks, defyLights, defyTitle },
+  { 150, 2, maryTracks, maryLights, maryTitle }
 };
+
+const int songsN = sizeof(songs) / sizeof(songs[0]);
 
 bool finished[MAX_TRACKS_N];
 bool allFinished = false;
@@ -233,6 +287,8 @@ int noteIndices[MAX_TRACKS_N];
 
 long scrollPrevTimes[LCD_HEIGHT];
 int lyricsIndices[LCD_HEIGHT];
+
+int songIndex = 1;
 
 void offLCD() {
   lcd.clear();
@@ -267,9 +323,25 @@ void printSubstring(const char* s, int startIndex) {
   lcd.print(buffer);
 }
 
+String readString(const char* strPtr) {
+  String result;
+  char c;
+  for (int i = 0; i < LCD_WIDTH; i++) {
+    c = pgm_read_byte_near(strPtr + i);
+    if (c == '\0') break;
+    result += c;
+  }
+  return result;
+}
+
 void updateScroll(const Song& song, long currTime, int skip) {
-  for (int i = 0; i < LCD_HEIGHT; i++) {
+  for (int i = 0; i < min(song.tracksN, LCD_HEIGHT); i++) {
     const Track& track = song.tracks[i];
+
+    // Skip if lyrics is null or first character is null terminator
+    if (!track.lyrics || pgm_read_byte(track.lyrics) == '\0') {
+      continue;
+    }
 
     if (currTime - scrollPrevTimes[i] > track.lyricsScrollDelay) {
       scrollPrevTimes[i] = currTime;
@@ -280,9 +352,68 @@ void updateScroll(const Song& song, long currTime, int skip) {
   }
 }
 
+int selectSong() {
+  Serial.println("Select your song! (Enter a number.)");
+  Serial.println("===================================");
+  Serial.println("  1 | Defying Gravity");
+  Serial.println("  2 | Mary Had a Little Lamb");
+
+  // keep looping until user enters valid input
+  while (true) {
+    if (Serial.available()) {
+      delay(300);  // make sure entire message has been sent
+
+      String input = Serial.readString();
+
+      input.trim();  // remove any leading or trailing whitespace
+
+      char* end;
+      int num = strtol(input.c_str(), &end, 10);
+
+      if (*end == '\0' && (num >= 1 && num <= songsN)) {
+        return num - 1;  // user has entered valid input; return index
+      } else {
+        Serial.println("Invalid input. Enter 1 or 2.");
+      }
+    }
+  }
+}
+
+void resetSongStates() {
+  long startTime = millis();
+
+  for (int i = 0; i < songs[songIndex].tracksN; i++) {
+    long delay = songs[songIndex].tracks[i].startDelay;
+
+    finished[i] = false;
+    prevTimes[i] = startTime;
+    currConvertedDurations[i] = delay;
+    currTotalDurations[i] = delay;
+    noteIndices[i] = 0;
+  }
+
+  for (int i = 0; i < LCD_HEIGHT; i++) {
+    Track t = songs[songIndex].tracks[i];
+
+    scrollPrevTimes[i] = startTime + t.startDelay - t.lyricsScrollDelay;
+    lyricsIndices[i] = 0;
+  }
+}
+
+/**
+ * Clear and print two strings on top and bottom lines.
+ */
+void printTwoLines(String a, String b) {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(a);
+  lcd.setCursor(0, 1);
+  lcd.print(b);
+}
+
 void setup() {
   Serial.begin(9600);
-  Serial.println("hi?");
+  Serial.println("Starting...");
 
   for (int i = 0; i < MAX_TRACKS_N; i++) {
     pinMode(TONE_PINS[i], OUTPUT);
@@ -293,15 +424,8 @@ void setup() {
     pinMode(LIGHTS[i], OUTPUT);
   }
 
-  beatDuration = songs[0].beatDuration();
-  Serial.println(String(beatDuration));
-
-  for (int i = 0; i < songs[0].tracksN; i++) {
-    finished[i] = false;
-    prevTimes[i] = 0;
-    currConvertedDurations[i] = songs[0].tracks[i].startDelay;
-    currTotalDurations[i] = songs[0].tracks[i].startDelay;
-    noteIndices[i] = 0;
+  for (int i = 0; i < LCD_WIDTH; i++) {
+    emptyLine += " ";
   }
 
   lcd.init();
@@ -309,22 +433,30 @@ void setup() {
   lcd.clear();
   lcd.setCursor(0, 0);
 
-  for (int i = 0; i < LCD_WIDTH; i++) {
-    emptyLine += " ";
-  }
+  printTwoLines("Select song in", "Serial Monitor");
+  songIndex = selectSong();
 
-  for (int i = 0; i < LCD_HEIGHT; i++) {
-    scrollPrevTimes[i] = songs[0].tracks[i].startDelay;
-    lyricsIndices[i] = 0;
-  }
+  lcd.clear();
+
+  // show title for 1.5 s
+  String line1 = readString(songs[songIndex].title[0]);
+  String line2 = readString(songs[songIndex].title[1]);
+  printTwoLines(line1, line2);
+  delay(1500);
+
+  lcd.clear();
+  delay(500);
+
+  beatDuration = songs[songIndex].beatDuration();
+  resetSongStates();
 }
 
 void loop() {
   long currTime = millis();
 
-  updateScroll(songs[0], currTime, 2);
+  updateScroll(songs[songIndex], currTime, 2);
 
-  for (int track = 0; track < songs[0].tracksN; track++) {
+  for (int track = 0; track < songs[songIndex].tracksN; track++) {
     long elapsed = currTime - prevTimes[track];
 
     if (track == 0 && elapsed > currConvertedDurations[0]) {
@@ -348,30 +480,30 @@ void loop() {
 
     if (track == 0) {
       for (int i = 0; i < LIGHTS_N; i++) {
-        if (songs[0].lightIsOn[noteIndices[0]][i]) {
+        if (pgm_read_byte(&(songs[songIndex].lightIsOn[noteIndices[0]][i]))) {
           digitalWrite(LIGHTS[i], HIGH);
         }
       }
     }
 
     prevTimes[track] = currTime;
-    currConvertedDurations[track] = beatDuration * pgm_read_float(&songs[0].tracks[track].durations[noteIndices[track]]);
-    currTotalDurations[track] = currConvertedDurations[track] * (1 + pgm_read_float(&songs[0].tracks[track].liaisons[noteIndices[track]]));
+    currConvertedDurations[track] = beatDuration * pgm_read_float(&songs[songIndex].tracks[track].durations[noteIndices[track]]);
+    currTotalDurations[track] = currConvertedDurations[track] * (1 + pgm_read_float(&songs[songIndex].tracks[track].liaisons[noteIndices[track]]));
 
     Serial.println("track:" + String(track));
     Serial.println("index: " + String(noteIndices[track]));
     Serial.println("prev: " + String(prevTimes[track]));
 
-    tones[track].play(pgm_read_word(&songs[0].tracks[track].pitches[noteIndices[track]]), currConvertedDurations[track]);
+    tones[track].play(pgm_read_word(&songs[songIndex].tracks[track].pitches[noteIndices[track]]), currConvertedDurations[track]);
 
     noteIndices[track]++;
 
-    if (noteIndices[track] == songs[0].tracks[track].notesN) {
+    if (noteIndices[track] == songs[songIndex].tracks[track].notesN) {
       finished[track] = true;
     }
   }
 
-  for (int track = 0; track < songs[0].tracksN; track++) {
+  for (int track = 0; track < songs[songIndex].tracksN; track++) {
     if (!finished[track]) {
       return;
     }
